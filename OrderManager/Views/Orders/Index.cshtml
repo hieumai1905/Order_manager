@@ -1,0 +1,97 @@
+﻿@model IEnumerable<OrderManager.Entities.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Volume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeWrap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>Xử lý</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Volume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipIn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeWrap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

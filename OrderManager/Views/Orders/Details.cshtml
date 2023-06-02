@@ -1,0 +1,227 @@
+﻿@model IEnumerable<OrderManager.Entities.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[ProjectName]</title>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/static/css/fontawesome.all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/static/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/static/css/responsive.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/static/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/starter.html" class="nav-link">
+                    <b>Chu Thị Thục Anh</b>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+       <a href="/customers" class="brand-link">
+            <img src="~/static/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Order Manager</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Requests" class="nav-link">
+                            <span class="nav-icon badge">Y</span>
+                            <p>[Yêu cầu]</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Customers" class="nav-link">
+                            <span class="nav-icon badge">K</span>
+                            <p>[Khách Hàng]</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Workshops" class="nav-link">
+                            <span class="nav-icon badge">X</span>
+                            <p>[Xưởng]</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Orders" class="nav-link active">
+                            <span class="nav-icon badge">Đ</span>
+                            <p>[Đơn Hàng]</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Products" class="nav-link">
+                            <span class="nav-icon badge">S</span>
+                            <p>[Sản Phẩm]</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Index" asp-controller="Categories" class="nav-link">
+                            <span class="nav-icon badge">D</span>
+                            <p>[Danh Mục]</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Chi tiết đơn hàng</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item">
+                                <a class="text-primary">Trang chủ</a>
+                            </li>
+                            <li class="breadcrumb-item active">[Đơn hàng]</li>
+                            <li class="breadcrumb-item active">[Chi tiết đơn hàng]</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <a asp-action="create" asp-controller="OrderDetails" asp-route-orderId="@ViewBag.OrderId" class="btn btn-primary">Thêm sản phẩm</a>
+                                <a asp-action="Index" class="btn btn-warning float-right">Back</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="products" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Product)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Quantity)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Price)
+                                        </th>
+                                        <th>Xử lý</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Product.ProductId)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Quantity)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Price)
+                                            </td>
+
+                                            <td>
+                                                <a asp-action="Edit" asp-controller="OrderDetails" asp-route-id="@item.OrderDetailId" class="btn btn-warning">Sửa</a> |
+                                                <a asp-action="Delete" asp-controller="OrderDetails" asp-route-id="@item.OrderDetailId" class="btn btn-danger">Xoá</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col-md-6 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline">
+            From <a href="https://github.com/thanhminhmr" target="_blank">N01</a>
+            and <a href="https://github.com/HMit19">N05</a> with love
+        </div>
+        Created by <a href="https://adminlte.io">N01!</a>.
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="~/static/js/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/static/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/static/js/adminlte.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="~/static/js/jquery.dataTables.min.js"></script>
+<script src="~/static/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/static/js/dataTables.responsive.min.js"></script>
+<script src="~/static/js/responsive.bootstrap4.min.js"></script>
+<script>
+    $("#products").DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+    });
+</script>
+</body>
+</html>

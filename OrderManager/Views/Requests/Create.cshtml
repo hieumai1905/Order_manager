@@ -1,0 +1,62 @@
+﻿@model OrderManager.Entities.Request
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="mt-5">Tạo yêu cầu</h1>
+
+<hr/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control"/>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Detail" class="control-label"></label>
+                    <textarea class="form-control" rows="4" asp-for="Detail">
+                    </textarea>
+                    <span asp-validation-for="Detail" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="1">Đang xử lý</option>
+                        <option value="0">Hoàn tất</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+    
+    
+                @if (ViewBag.userId != null)
+                {
+                    <input type="hidden" asp-for="CustomerId" value="@ViewBag.userId">
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="CustomerId" class="control-label"></label>
+                        <select  asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                    </div>
+                }
+    
+                <div class="form-group mt-2">
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
